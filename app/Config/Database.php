@@ -26,11 +26,11 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => '',
-        'username' => '',
-        'password' => '',
-        'database' => '',
-        'DBDriver' => '',
+        'hostname' => 'bsgefnevmofqzrdt1ssr-mysql.services.clever-cloud.com',
+        'username' => 'urbpcttjpqa4two9',
+        'password' => 'qRMdc6vltGI3NeglCgBJ',
+        'database' => 'bsgefnevmofqzrdt1ssr',
+        'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => true,
@@ -41,7 +41,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => '',
+        'port'     => '3306',
     ];
 
     /**

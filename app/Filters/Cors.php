@@ -25,27 +25,19 @@ class Cors implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        // header("Access-Control-Allow-Origin: *");
-        // header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
-        // header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-        // header("Access-Control-Allow-Credentials: true"); // Menambahkan header untuk mengizinkan cookies
-        // $method = $_SERVER['REQUEST_METHOD'];
-        // if ($method == "OPTIONS") {
-        //     die();
-        // }
-
-        // Menggunakan objek respons CodeIgniter
         $response = service('response');
 
-        // Menambahkan header CORS
+        // Add CORS headers to the response
         $response->setHeader('Access-Control-Allow-Origin', '*');
         $response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         $response->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-        $response->setHeader('Access-Control-Allow-Credentials', 'true'); // Menambahkan header untuk mengizinkan cookies
+        $response->setHeader('Access-Control-Allow-Credentials', 'true');
 
-        // Jika metode adalah OPTIONS, kembalikan status 200
+        // Handle preflight requests
         if ($request->getMethod() === 'options') {
-            return $response->setStatusCode(200)->setBody('OK')->send();
+            $response->setStatusCode(200)->setBody('OK');
+            $response->send();
+            exit; // Ensure the request does not continue
         }
     }
 
@@ -63,6 +55,10 @@ class Cors implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        // Add CORS headers to the response for all requests
+        $response->setHeader('Access-Control-Allow-Origin', '*');
+        $response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+        $response->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        $response->setHeader('Access-Control-Allow-Credentials', 'true');
     }
 }

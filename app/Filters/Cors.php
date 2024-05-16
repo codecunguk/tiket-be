@@ -34,14 +34,18 @@ class Cors implements FilterInterface
         //     die();
         // }
 
+        // Menggunakan objek respons CodeIgniter
         $response = service('response');
+
+        // Menambahkan header CORS
         $response->setHeader('Access-Control-Allow-Origin', '*');
         $response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         $response->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
         $response->setHeader('Access-Control-Allow-Credentials', 'true'); // Menambahkan header untuk mengizinkan cookies
 
+        // Jika metode adalah OPTIONS, kembalikan status 200
         if ($request->getMethod() === 'options') {
-            return $response->setStatusCode(200);
+            return $response->setStatusCode(200)->setBody('OK')->send();
         }
     }
 
